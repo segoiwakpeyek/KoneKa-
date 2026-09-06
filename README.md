@@ -21,6 +21,7 @@
 - [Tentang Proyek](#-tentang-proyek)
 - [Fitur Unggulan](#-fitur-unggulan)
 - [Demo & Screenshot](#-demo--screenshot)
+- [Kompatibilitas Mobile & Instalasi PWA](#-kompatibilitas-mobile--instalasi-pwa-web-to-app-experience)
 - [Teknologi](#-teknologi)
 - [Arsitektur Sistem](#-arsitektur-sistem)
 - [Folder Structure](#-folder-structure)
@@ -123,6 +124,72 @@ Guna mengatasi lambatnya penanganan isu perkotaan, koneKA hadir sebagai platform
 📹 **[Link Video Demo](https://[URL_VIDEO])** _(opsional)_
 
 ---
+
+## 📱 Kompatibilitas Mobile & Instalasi PWA (Web-to-App Experience)
+
+KoneKA dikembangkan dengan filosofi **Mobile-First & Universal Compatibility**. Meskipun dibangun sebagai aplikasi web (Single Page Application), antarmuka KoneKA dioptimasi penuh untuk perangkat *smartphone* (Android & iOS) dan dapat **diunduh serta dipasang langsung menjadi aplikasi ponsel** layaknya aplikasi *native* tanpa perlu melalui Google Play Store atau Apple App Store.
+
+### 🌟 Keunggulan Kompatibilitas Mobile
+
+1. **Antarmuka Mobile-First yang Ergonomis**:
+   - Dilengkapi **Bilah Navigasi Bawah (*Bottom Navigation Bar*)** (`Peta`, `Usaha`, `Aktivitas`, `Profil`) yang dirancang khusus untuk kenyamanan jangkauan satu jempol (*single-thumb zone*).
+   - Seluruh formulir (Lapor Masalah, Bukti Bantuan, Detail Usaha) hadir dalam bentuk **Bottom Sheet Modal** yang meluncur mulus dari bagian bawah layar ponsel.
+   - Peta Leaflet.js telah dioptimasi untuk interaksi layar sentuh (*touch gestures*): *pinch-to-zoom*, *drag & pan*, *double-tap zoom*, serta pengelompokan penanda otomatis (*marker clustering*).
+
+2. **Akses Perangkat Keras Ponsel (*Native Device Capabilities*)**:
+   - **GPS Geolocation Presisi**: Memanfaatkan sensor GPS ponsel (`navigator.geolocation`) untuk memindai titik koordinat warga secara akurat saat melaporkan masalah atau menandai lokasi usaha.
+   - **Kamera Ponsel Langsung**: Mengintegrasikan kamera bawaan ponsel (kamera belakang/depan) via `HTML5 MediaDevices API` untuk mengambil foto bukti secara *real-time* di tempat kejadian.
+
+3. **Kemampuan PWA (Progressive Web App) — Unduh Menjadi Aplikasi Mandiri**:
+   - **Tanpa Perlu Toko Aplikasi (No App Store Required)**: Warga tidak perlu menghabiskan kuota ratusan megabyte untuk mengunduh berkas APK/IPA besar. Ukuran PWA KoneKA sangat ringan (<2MB).
+   - **Tampilan Standalone (Layar Penuh Tanpa Browser Bar)**: Saat dibuka dari layar utama ponsel, aplikasi berjalan tanpa *address bar* peramban, memberikan pengalaman visual yang 100% murni seperti aplikasi native.
+   - **Ikon Resmi di Layar Utama (Home Screen)**: Aplikasi terpasang dengan nama dan ikon resmi KoneKA di *drawer/home screen* ponsel pengguna.
+   - **Akses Cepat & Bekerja Luring (*Offline Caching*)**: Ditenagai oleh **Service Worker (`sw.js`)** dan **Web App Manifest (`manifest.json`)** yang secara cerdas menyimpan aset inti secara lokal. Halaman terbuka instan (*0-second load*) dan tetap dapat diakses saat koneksi internet lambat.
+
+---
+
+### 📱 Galeri Pengalaman Mobile & PWA Terpasang
+
+<div align="center">
+  <table border="0" style="border:none;border-collapse:collapse;width:100%;text-align:center">
+    <tr>
+      <td width="25%" align="center" style="border:none;padding:8px">
+        <img src="mobile_screenshot_1.jpg" alt="Peta Mobile & Bottom Nav" width="230" style="border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,0.2)"/>
+        <p style="font-size:12px;margin-top:6px"><b>Peta Interaktif Mobile</b><br/><em>Navigasi jempol &amp; floating action button</em></p>
+      </td>
+      <td width="25%" align="center" style="border:none;padding:8px">
+        <img src="mobile_screenshot_2.jpg" alt="Bottom Sheet Lapor Masalah" width="230" style="border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,0.2)"/>
+        <p style="font-size:12px;margin-top:6px"><b>Bottom Sheet Lapor</b><br/><em>Kamera &amp; GPS ponsel terintegrasi</em></p>
+      </td>
+      <td width="25%" align="center" style="border:none;padding:8px">
+        <img src="mobile_screenshot_3.jpg" alt="Bottom Sheet Isi Niat" width="230" style="border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,0.2)"/>
+        <p style="font-size:12px;margin-top:6px"><b>Alur Gotong Royong</b><br/><em>Form respon warga di layar ponsel</em></p>
+      </td>
+      <td width="25%" align="center" style="border:none;padding:8px">
+        <img src="mobile_pwa_installed.jpg" alt="Aplikasi Terinstal di Home Screen" width="230" style="border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,0.2)"/>
+        <p style="font-size:12px;margin-top:6px"><b>Terpasang di Home Screen</b><br/><em>Ikon aplikasi resmi terinstal di HP</em></p>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+### 📥 Panduan Mengunduh / Memasang Aplikasi di Smartphone
+
+#### 🤖 Pengguna Android (Google Chrome, Microsoft Edge, Samsung Internet)
+1. Buka peramban di ponsel Anda dan kunjungi **`https://koneka.netlify.app`**.
+2. Klik menu titik tiga (**⋮**) di pojok kanan atas peramban (atau tunggu spanduk otomatis *"Tambahkan KoneKA ke Layar Utama"* muncul di bagian bawah).
+3. Pilih menu **"Install Aplikasi"** atau **"Tambahkan ke Layar Utama" (Add to Home Screen)**.
+4. Konfirmasi dengan menekan tombol **"Install"**.
+5. Ikon aplikasi **KoneKA** akan langsung muncul di beranda dan laci aplikasi ponsel Anda, siap dibuka sewaktu-waktu layaknya aplikasi Android bawaan.
+
+#### 🍏 Pengguna iPhone / iPad (Safari)
+1. Buka peramban **Safari** dan akses **`https://koneka.netlify.app`**.
+2. Tekan tombol **Share** (ikon kotak dengan panah ke atas) pada bilah navigasi Safari.
+3. Gulir ke bawah lalu pilih menu **"Add to Home Screen"** (Tambahkan ke Layar Utama).
+4. Beri nama (default: *KoneKA*), lalu ketuk **"Add"** di sudut kanan atas.
+5. Aplikasi KoneKA kini telah terinstal di layar beranda iOS Anda dalam mode *Full-Screen Standalone*.
 
 ## 🛠️ Teknologi
 
@@ -357,11 +424,15 @@ Koneka-Web/
 ├── icon.svg                     # Vektor logo resmi aplikasi KoneKA
 ├── icon-192.png                 # Ikon PWA beresolusi 192x192 px
 ├── icon-512.png                 # Ikon PWA beresolusi 512x512 px
-├── screenshot_1.png             # Dokumentasi visual: Peta Interaktif & Marker Masalah/UMKM
-├── screenshot_2.png             # Dokumentasi visual: Formulir Pelaporan Masalah & Kamera
-├── screenshot_3.png             # Dokumentasi visual: Dashboard Manajemen Finansial UMKM
-├── screenshot_4.png             # Dokumentasi visual: Alur Gotong Royong Peer-to-Peer Resolution
-├── screenshot_5.png             # Dokumentasi visual: Detail Informasi & Ulasan Profil UMKM
+├── screenshot_1.png             # Dokumentasi visual desktop: Peta Interaktif & Marker Masalah/UMKM
+├── screenshot_2.png             # Dokumentasi visual desktop: Formulir Pelaporan Masalah & Kamera
+├── screenshot_3.png             # Dokumentasi visual desktop: Dashboard Manajemen Finansial UMKM
+├── screenshot_4.png             # Dokumentasi visual desktop: Alur Gotong Royong Peer-to-Peer Resolution
+├── screenshot_5.png             # Dokumentasi visual desktop: Detail Informasi & Ulasan Profil UMKM
+├── mobile_screenshot_1.jpg      # Dokumentasi visual mobile: Peta Interaktif & Bottom Navigation Bar
+├── mobile_screenshot_2.jpg      # Dokumentasi visual mobile: Formulir Lapor Masalah via Bottom Sheet
+├── mobile_screenshot_3.jpg      # Dokumentasi visual mobile: Alur Gotong Royong Niat & Rencana
+├── mobile_pwa_installed.jpg     # Dokumentasi visual PWA: Aplikasi KoneKA Terpasang di Home Screen HP
 ├── css/
 │   └── styles.css               # Seluruh tata gaya antarmuka, tema terang/gelap, animasi, & layout responsif (~31KB)
 ├── js/

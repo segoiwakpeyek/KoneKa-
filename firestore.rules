@@ -1,0 +1,110 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Helper functions ───
+    function isAuth() { return request.auth != null; }
+    function isOwner(uid) { return isAuth() && request.auth.uid == uid; }
+    function isAdmin() {
+      return isAuth() && (
+        request.auth.token.admin == true ||
+        request.auth.token.email == 'Koqw2wq10xnH9wbalao81alqm@gmail.com' ||
+        request.auth.token.email == 'koqw2wq10xnh9wbalao81alqm@gmail.com'
+      );
+    }
+
+    // ─── Users ───
+    match /users/{uid} {
+      allow read: if isAuth();
+      allow create: if isOwner(uid);
+      allow update: if isOwner(uid) || isAdmin();
+      allow delete: if isOwner(uid) || isAdmin();
+
+      // Business subcollection (1 per user)
+      match /business/{bizId} {
+        allow read: if true;  // Public for UMKM directory
+        allow write: if isOwner(uid) || isAdmin();
+      }
+    }
+
+    // ─── Businesses (top-level collection for public map markers) ───
+    match /businesses/{bizId} {
+      allow read: if true;
+      allow create: if isAuth();
+      allow update: if (isAuth() && request.auth.uid == resource.data.userId) || isAdmin();
+      allow delete: if (isAuth() && request.auth.uid == resource.data.userId) || isAdmin();
+
+      // Comments on business
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isAuth();
+        allow delete: if isAdmin();
+      }
+
+      // Flags (1 per user per business)
+      match /flags/{uid} {
+        allow read: if isAdmin();
+        allow create: if isOwner(uid);
+        allow update: if isOwner(uid);
+      }
+    }
+
+    // ─── Reports (public read, auth write) ───
+    match /reports/{reportId} {
+      allow read: if true;
+      allow create: if isAuth();
+      allow update: if (isAuth() && request.auth.uid == resource.data.userId) || isAdmin();
+      allow delete: if (isAuth() && request.auth.uid == resource.data.userId) || isAdmin();
+
+      // Comments
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isAuth();
+        allow delete: if isAdmin();
+      }
+
+      // Validations (1 per user per report)
+      match /validations/{uid} {
+        allow read: if true;
+        allow create: if isOwner(uid);
+        allow update: if isOwner(uid);
+      }
+
+      // Flags (1 per user per report)
+      match /flags/{uid} {
+        allow read: if isAdmin();
+        allow create: if isOwner(uid);
+      }
+    }
+
+    // ─── Products (owner only) ───
+    match /products/{productId} {
+      allow read: if isAuth() && request.auth.uid == resource.data.userId;
+      allow create: if isAuth() && request.auth.uid == request.resource.data.userId;
+      allow update: if isAuth() && request.auth.uid == resource.data.userId;
+      allow delete: if isAuth() && request.auth.uid == resource.data.userId;
+    }
+
+    // ─── Transactions (owner only) ───
+    match /transactions/{txId} {
+      allow read: if isAuth() && request.auth.uid == resource.data.userId;
+      allow create: if isAuth() && request.auth.uid == request.resource.data.userId;
+      allow update: if isAuth() && request.auth.uid == resource.data.userId;
+      allow delete: if isAuth() && request.auth.uid == resource.data.userId;
+    }
+
+    // ─── Invoices (owner only) ───
+    match /invoices/{invId} {
+      allow read: if isAuth() && request.auth.uid == resource.data.userId;
+      allow create: if isAuth() && request.auth.uid == request.resource.data.userId;
+      allow update: if isAuth() && request.auth.uid == resource.data.userId;
+      allow delete: if isAuth() && request.auth.uid == resource.data.userId;
+    }
+
+    // ─── Mail collection (Trigger Email extension / Outbox) ───
+    match /mail/{mailId} {
+      allow create: if isAuth();
+      allow read, update, delete: if false;
+    }
+  }
+}

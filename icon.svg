@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Warm Golden-Yellow Gradient -->
+    <linearGradient id="yellowBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFCD00" />
+      <stop offset="100%" stop-color="#FF9400" />
+    </linearGradient>
+    <filter id="pinShadow" x="-30%" y="-20%" width="160%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#784200" flood-opacity="0.36" />
+    </filter>
+  </defs>
+  <!-- Full-bleed background for maskable compatibility on all Android & iOS devices -->
+  <rect width="512" height="512" fill="url(#yellowBgGrad)" />
+  <!-- Map Pin Symbol centered strictly in the 80% safe zone (safe radius <= 205px) -->
+  <g filter="url(#pinShadow)" transform="translate(256, 240) scale(0.95)">
+    <!-- White Outer Pin Body -->
+    <path d="M0 -140 C-80 -140, -130 -80, -130 0 C-130 70, -40 140, 0 200 C40 140, 130 70, 130 0 C130 -80, 80 -140, 0 -140 Z" fill="#FFFFFF" />
+    <!-- Indonesian Red Accent Inner Pin -->
+    <path d="M0 -110 C-60 -110, -95 -65, -95 -5 C-95 50, -30 105, 0 155 C30 105, 95 50, 95 -5 C95 -65, 60 -110, 0 -110 Z" fill="#FF3B30" />
+    <!-- White Core Circle -->
+    <circle cx="0" cy="-10" r="42" fill="#FFFFFF" />
+    <!-- Center Dot (Slate Dark for Maximum Contrast) -->
+    <circle cx="0" cy="-10" r="22" fill="#1C1D20" />
+  </g>
+</svg>
